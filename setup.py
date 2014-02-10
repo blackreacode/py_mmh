@@ -20,7 +20,7 @@ setup(
 	ext_modules = [
 		Extension('mmh', 
 			sources = [
-				'mmh.cc'
+				'mmh.c'
 			],
 			extra_compile_args = extra_compile_args
 		)
