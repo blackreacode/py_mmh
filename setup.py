@@ -16,7 +16,7 @@ setup(
 	maintainer = 'Michael Lee',
 	maintainer_email = 'liyong19861014@gmail.com',
 	url = 'https://github.com/airhuman/py_mmh.git',
-	description = 'Python bindings for Google Murmurhash2 hash algorithm',
+    	description = 'Python bindings for Google Murmurhash2 hash algorithm',
 	ext_modules = [
 		Extension('mmh', 
 			sources = [
