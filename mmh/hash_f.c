@@ -146,7 +146,7 @@ static PyMethodDef methods[] = {
         {NULL,NULL,0,NULL}
 };
 
-PyMODINIT_FUNC initmmh(void) {
-        Py_InitModule3("mmh", methods, "Google MurmurHash2 hash algorithm extension module. Feature: Unsigned version, uint32 and uint64");
+PyMODINIT_FUNC inithash_f(void) {
+        Py_InitModule3("hash_f", methods, "Google MurmurHash2 hash algorithm extension module. Feature: Unsigned version, uint32 and uint64");
 }
 
