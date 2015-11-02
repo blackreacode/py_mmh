@@ -43,6 +43,8 @@ class Continuum(object):
             point_size = len(self.points)
             if i != point_size:
                 return self.points[i % point_size].desc
+            else:
+                return self.points[0].desc
 
     def Rebuild(self):
         self.continuum_lock.acquire()
