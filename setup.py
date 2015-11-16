@@ -10,7 +10,7 @@ extra_compile_args = ['-g', '-fPIC', '-Wall', '-O2']
 
 setup(
     name='mmh',
-    version='1.2',
+    version='1.3',
     maintainer='Michael Lee',
     maintainer_email='liyong19861014@gmail.com',
     url='https://github.com/airhuman/py_mmh.git',
@@ -20,5 +20,10 @@ setup(
         Extension(
             'mmh.hash_f', sources=['mmh/hash_f.c'],
             extra_compile_args=extra_compile_args)
-    ]
+    ],
+    entry_points={
+        'console_scripts': [
+            'echo_mmh_version = mmh.mmh_version:main',
+        ],
+    }
 )

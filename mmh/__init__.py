@@ -3,3 +3,5 @@
 
 import continuum
 import hash_f
+
+VERSION = '1.3'
