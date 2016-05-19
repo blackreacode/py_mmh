@@ -112,7 +112,7 @@ static PyObject * get_unsigned_hash32(PyObject *self, PyObject *args) {
   char *key;
   unsigned len;
   unsigned seed;
-  if (!PyArg_ParseTuple(args,"sII",&key,&len,&seed)) {
+  if (!PyArg_ParseTuple(args,"s#II",&key,&len,&len,&seed)) {
     return NULL;
   }
   uint32_t h = MurmurHash2(key, len, seed);
@@ -127,7 +127,7 @@ static PyObject * get_unsigned_hash64(PyObject *self,PyObject *args) {
   char *key;
   unsigned len;
   unsigned seed;
-  if (!PyArg_ParseTuple(args,"siI",&key,&len,&seed)) {
+  if (!PyArg_ParseTuple(args,"s#II",&key,&len,&len,&seed)) {
     return NULL;
   }
   uint64_t h = MurmurHash64B(key, len, seed);
