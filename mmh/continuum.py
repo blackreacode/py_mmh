@@ -34,11 +34,11 @@ class Continuum(object):
         with self.continuum_lock:
             return len(self.points)
 
-    def Locate(self, hash):
+    def Locate(self, hash_value):
         with self.continuum_lock:
             if not self.points:
                 return None
-            p = _Point(hash, "")
+            p = _Point(hash_value, "")
             i = bisect.bisect_right(self.points, p)
             point_size = len(self.points)
             if i != point_size:
@@ -82,5 +82,7 @@ class Continuum(object):
             self.desc_capacity.clear()
 
     @staticmethod
-    def Hash(str):
-        return hash_f.get_unsigned_hash32(str, len(str), 0)
+    def Hash(key):
+        if not isinstance(key, basestring):
+            key = str(key)
+        return hash_f.get_unsigned_hash32(key, len(key), 0)
