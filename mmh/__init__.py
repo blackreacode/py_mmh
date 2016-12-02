@@ -1,7 +1,4 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import continuum
-import hash_f
-
-VERSION = '1.3'
+VERSION = '1.4.3'

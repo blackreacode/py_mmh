@@ -10,7 +10,7 @@ extra_compile_args = ['-g', '-fPIC', '-Wall', '-O2']
 
 setup(
     name='mmh',
-    version='1.4.2',
+    version='1.4.3',
     maintainer='Michael Lee',
     maintainer_email='liyong19861014@gmail.com',
     url='https://github.com/airhuman/py_mmh.git',
