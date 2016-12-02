@@ -117,7 +117,7 @@ static PyObject * get_unsigned_hash32(PyObject *self, PyObject *args) {
   }
   uint32_t h = MurmurHash2(key, len, seed);
 #if defined(__x86_64__)
-  return PyInt_FromLong(h);
+  return PyLong_FromLong(h);
 #else
   return PyLong_FromLongLong(h);
 #endif
@@ -132,7 +132,7 @@ static PyObject * get_unsigned_hash64(PyObject *self,PyObject *args) {
   }
   uint64_t h = MurmurHash64B(key, len, seed);
 #if defined(__x86_64__)
-  return PyInt_FromLong(h);
+  return PyLong_FromLong(h);
 #else
   return PyLong_FromLongLong(h);
 #endif
@@ -146,7 +146,26 @@ static PyMethodDef methods[] = {
         {NULL,NULL,0,NULL}
 };
 
+#if PY_MAJOR_VERSION == 2
+
 PyMODINIT_FUNC inithash_f(void) {
         Py_InitModule3("hash_f", methods, "Google MurmurHash2 hash algorithm extension module. Feature: Unsigned version, uint32 and uint64");
 }
 
+#endif
+
+#if PY_MAJOR_VERSION == 3
+static struct PyModuleDef hash_f =
+{
+    PyModuleDef_HEAD_INIT,
+    "hash_f", /* name of module */
+    "Google MurmurHash2 hash algorithm extension module. Feature: Unsigned version, uint32 and uint64",
+    -1,
+    methods
+};
+
+PyMODINIT_FUNC PyInit_hash_f(void)
+{
+    return PyModule_Create(&hash_f);
+}
+#endif
