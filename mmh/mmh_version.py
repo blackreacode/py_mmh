@@ -5,4 +5,4 @@ from mmh import VERSION
 
 
 def main():
-    print 'mmh version:', VERSION
+    print('mmh version:', VERSION)
