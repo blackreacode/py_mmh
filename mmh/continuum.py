@@ -9,6 +9,7 @@ from mmh import hash_f
 
 
 class _Point(object):
+
     def __init__(self, value, desc):
         self.value = value
         self.desc = desc
@@ -21,21 +22,22 @@ class _Point(object):
 
 
 class Continuum(object):
+
     def __init__(self, name):
         self.name = name
-        self.continuum_lock = threading.Lock()
+        self.lock = threading.Lock()
         self.points = []
-        self.desc_capacity = {} # desc:capacity
+        self.desc_capacity = {}  # desc:capacity
 
     def get_name(self):
         return self.name
 
     def Size(self):
-        with self.continuum_lock:
+        with self.lock:
             return len(self.points)
 
     def Locate(self, hash_value):
-        with self.continuum_lock:
+        with self.lock:
             if not self.points:
                 return None
             p = _Point(hash_value, "")
@@ -47,38 +49,36 @@ class Continuum(object):
                 return self.points[0].desc
 
     def Rebuild(self):
-        self.continuum_lock.acquire()
-        try:
+        with self.lock:
             total_value = 0
-            for v in self.desc_capacity.itervalues():
+            for v in self.desc_capacity.values():
                 total_value += v
 
             if total_value == 0:
                 return False
 
             new_points = []
-            for desc, val in self.desc_capacity.iteritems():
+            for desc, val in self.desc_capacity.items():
                 for i in range(val):
-                    replicated_desc = '%s-%x' % (desc, i) # very important!!!
+                    # very important!!!
+                    replicated_desc = '%s-%x' % (desc, i)
                     hash_value = Continuum.Hash(replicated_desc)
-                    bisect.insort(new_points, _Point(hash_value, desc))  # very important!!!
-            del self.points[:]
+                    # very important!!!
+                    bisect.insort(new_points, _Point(hash_value, desc))
             self.points = new_points
-        finally:
-            self.continuum_lock.release()
-        return True
+            return True
 
     def Add(self, desc, capacity):
-        with self.continuum_lock:
+        with self.lock:
             self.desc_capacity[desc] = capacity
 
     def Remove(self, desc):
-        with self.continuum_lock:
+        with self.lock:
             if desc in self.desc_capacity:
                 del self.desc_capacity[desc]
 
     def Clear(self):
-        with self.continuum_lock:
+        with self.lock:
             self.desc_capacity.clear()
 
     @staticmethod
