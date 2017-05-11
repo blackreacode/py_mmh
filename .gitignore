@@ -2,3 +2,5 @@ build
 dist
 mmh.egg-info
 mmh/*.pyc
+*.so
+__pycache__
